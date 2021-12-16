@@ -5,8 +5,6 @@ const mysql = require('mysql');
 const hostname = 'localhost';
 const port = 5000;
 
-
-
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -22,6 +20,15 @@ db.connect( (error) => {
         console.log("You're database has been connected sucefully :)") 
     }
 });
+
+
+db.query('SELECT * FROM project' , (error,row) => {
+    if(error) throw error;
+
+    console.log('Data received successfully from DB ')
+    console.log(row)
+})
+
 const server = http.createServer((req, res) => {
     console.log(req.headers);
     res.statusCode = 200;
