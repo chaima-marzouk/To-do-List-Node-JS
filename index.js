@@ -1,37 +1,66 @@
 
 const http = require('http');
-const mysql = require('mysql');
+var db = require('./src/config/db')
+const projects = require('./src/data/project.json')
+const { getProjects } = require('./src/controllers/projectController')
 
 const hostname = 'localhost';
 const port = 5000;
 
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database:'to_do_list'
-});
-
-db.connect( (error) => {
-    if(error){
-        console.log("something went wrong with your database :(")
+const server = http.createServer((req, res) => {
+   if(req.url === '/api/projects' && req.method === 'GET'){
+        getProjects(req, res)
     }
     else{
-        console.log("You're database has been connected sucefully :)") 
+        res.writeHead(404, { 'Content-Type': 'application/json'})
+        res.end(JSON.stringify({ message : 'Route Not Found'}))
     }
-});
-
-
-db.query('SELECT * FROM project' , (error,row) => {
-    if(error) throw error;
-
-    console.log('Data received successfully from DB ')
-    console.log(row)
-})
-
-const server = http.createServer((req, res) => {
-    console.log(req.headers);
-    res.statusCode = 200;
-    res.end('<html><body><h1>Hello, World!</h1></body></html>');
    })
+
    server.listen(port, hostname);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// db.query('SELECT * FROM project' , (error,rows) => {
+//     if(error) throw error;
+
+//     console.log('Data received successfully from DB ')
+//     console.log(rows)
+//     rows.forEach( (row) => {
+//         console.log(` the project name is : ${row.name} and the desc is ${row.description}`)
+//     })
+
+// })
+
+
+
+
+
+
+

@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index"
-
   },
   "repository": {
     "type": "git",
@@ -20,6 +19,7 @@
   },
   "homepage": "https://github.com/chaima-marzouk/To-do-List-Node-JS#readme",
   "dependencies": {
+    "ejs": "^3.1.6",
     "mysql": "^2.18.1"
   },
   "devDependencies": {}

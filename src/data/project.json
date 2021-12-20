@@ -1,0 +1,10 @@
+[
+{"type":"header","version":"5.0.4","comment":"Export to JSON plugin for PHPMyAdmin"},
+{"type":"database","name":"to_do_list"},
+{"type":"table","name":"project","database":"to_do_list","data":
+[
+{"id":"1","name":"project 1","description":"une description du premier project pour tester le select "},
+{"id":"2","name":"project 2","description":"une description du dexieme project pour tester le select "}
+]
+}
+]
