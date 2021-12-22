@@ -4,13 +4,12 @@ const path = require('path');
 const ejs = require('ejs');
 const hostname = 'localhost';
 const port = 5001;
+const {getProjects} = require('./src/controllers/projectController')
 
 const server = http.createServer((req, res) => {
 
     if (req.url === "/") {
         res.writeHead(200, {'Content-Type': 'text/html'});
-        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
-
         fs.readFile(path.join(__dirname, "src" , "views" , `index.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
             let htmlContent = ejs.render(data, []);
@@ -21,11 +20,11 @@ const server = http.createServer((req, res) => {
         
     }else if (req.url === "/project") {
         res.writeHead(200, {'Content-Type': 'text/html'});
-        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
-
         fs.readFile(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
-            let htmlContent = ejs.render(data, []);
+            let htmlContent = ejs.render(data, {
+                getProjects : getProjects
+            });
             res.write(htmlContent);
             res.end();
         });
@@ -33,8 +32,6 @@ const server = http.createServer((req, res) => {
         
     }else if (req.url === "/home") {
         res.writeHead(200, {'Content-Type': 'text/html'});
-        console.log(path.join( __dirname, "src" , "views" , `home.ejs`)); 
-
         fs.readFile(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
             let htmlContent = ejs.render(data, []);
@@ -45,8 +42,6 @@ const server = http.createServer((req, res) => {
         
     }else {
         res.writeHead(404, {'Content-Type': 'text/html'});
-        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
-
         fs.readFile(path.join(__dirname, "src" , "views" , `404.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
             let htmlContent = ejs.render(data, []);
@@ -59,6 +54,8 @@ const server = http.createServer((req, res) => {
 
 
 });
+
+console.log(getProjects);
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
