@@ -1,7 +1,7 @@
-const projects = require('../data/project.json')
+// const projects = require('../data/project.json')
 const db = require('../config/db')
 
-var dbb = db.query('SELECT * FROM project' , (error,rows) => {
+var projects = db.query('SELECT * FROM project' , (error,rows) => {
 
     if(error) throw error;
 

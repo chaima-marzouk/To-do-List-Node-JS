@@ -1,23 +1,68 @@
-
 const http = require('http');
-var db = require('./src/config/db')
-const projects = require('./src/data/project.json')
-const { getProjects } = require('./src/controllers/projectController')
-
+const fs = require('fs');
+const path = require('path');
+const ejs = require('ejs');
 const hostname = 'localhost';
-const port = 5000;
+const port = 5001;
 
 const server = http.createServer((req, res) => {
-   if(req.url === '/api/projects' && req.method === 'GET'){
-        getProjects(req, res)
-    }
-    else{
-        res.writeHead(404, { 'Content-Type': 'application/json'})
-        res.end(JSON.stringify({ message : 'Route Not Found'}))
-    }
-   })
 
-   server.listen(port, hostname);
+    if (req.url === "/") {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
+
+        fs.readFile(path.join(__dirname, "src" , "views" , `index.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });
+        
+        
+    }else if (req.url === "/project") {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
+
+        fs.readFile(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });
+        
+        
+    }else if (req.url === "/home") {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        console.log(path.join( __dirname, "src" , "views" , `home.ejs`)); 
+
+        fs.readFile(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });
+        
+        
+    }else {
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        console.log(path.join( __dirname, "src" , "views" , `index.ejs`)); 
+
+        fs.readFile(path.join(__dirname, "src" , "views" , `404.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });
+        
+        
+    }
+
+
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 
 
 
