@@ -1,45 +1,21 @@
-// const projects = require('../data/project.json')
 const db = require('../config/db')
 
 
+let getProjects = (callback) => {
 
+    db.query('SELECT * FROM project' , (error,rows) => {
 
-var projects = db.query('SELECT * FROM project' , (error,rows) => {
-
-    if(error) throw error;
-
-    console.log('Data received successfully from DB ')
-    // console.log(rows)
-    rows.forEach((row) => {
-        console.log(` the project name is : ${row.name} and the desc is ${row.description} `)
-
-    })
-
-})
-
-function findAll(){
-    return new Promise((resolve, reject) => {
-        resolve(projects)
+        if(error) throw error;
+        callback(rows);
         
     })
-}
 
-module.exports = {
-    projects,
-    findAll
+
 }
 
 
 
+module.exports =  { getProjects }
 
 
 
-
-
-
-
-
-module.exports = {
-    findAll
-}
-    

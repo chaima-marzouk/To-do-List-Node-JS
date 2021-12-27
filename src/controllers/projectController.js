@@ -1,7 +1,7 @@
 const Projects = require('../models/projectModel')
 
 
-async function getProjects(req,res){
+ async function getProjects(req,res){
     try{
 
         const projects = await Projects.findAll()
@@ -15,8 +15,4 @@ async function getProjects(req,res){
 
 
 
-
-
-module.exports = {
-   getProjects
-}
+module.exports = { getProjects}

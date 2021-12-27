@@ -3,28 +3,31 @@ const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
 const hostname = 'localhost';
-const port = 5001;
-const {getProjects} = require('./src/controllers/projectController')
+const port = 8080;
+// const {test} = require('./src/controllers/projectController')
+const { getProjects } = require('./src/models/projectModel')
+
+
 
 const server = http.createServer((req, res) => {
-
+    
     if (req.url === "/") {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        fs.readFile(path.join(__dirname, "src" , "views" , `index.ejs`), 'utf-8' , (err, data) => {
-            if(err) throw err;
-            let htmlContent = ejs.render(data, []);
+        getProjects((rows) => {
+
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `index.ejs`), 'utf-8');
+            let htmlContent = ejs.render(fileContent, { projects: rows});
             res.write(htmlContent);
             res.end();
-        });
-        
+
+        })
+            
         
     }else if (req.url === "/project") {
         res.writeHead(200, {'Content-Type': 'text/html'});
         fs.readFile(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
-            let htmlContent = ejs.render(data, {
-                getProjects : getProjects
-            });
+            let htmlContent = ejs.render(data, {});
             res.write(htmlContent);
             res.end();
         });
@@ -37,8 +40,7 @@ const server = http.createServer((req, res) => {
             let htmlContent = ejs.render(data, []);
             res.write(htmlContent);
             res.end();
-        });
-        
+        });  
         
     }else {
         res.writeHead(404, {'Content-Type': 'text/html'});
@@ -49,13 +51,12 @@ const server = http.createServer((req, res) => {
             res.end();
         });
         
-        
     }
 
 
 });
 
-console.log(getProjects);
+// console.log(getProjects);
 
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
