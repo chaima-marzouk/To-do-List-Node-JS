@@ -5,12 +5,19 @@ const ejs = require('ejs');
 const hostname = 'localhost';
 const port = 3000;
 const { getProjects } = require('./src/models/projectModel')
+const { insertProject } = require('./src/models/projectModel')
 
+// console.log(insertProject.res)
 
 
 const server = http.createServer((req, res) => {
     
-    if (req.url === "/project") {
+    
+    
+   
+   
+    
+    if (req.url === "/") {
         getProjects((rows) => {
 
             res.writeHead(200, {'Content-Type': 'text/html'});
@@ -45,9 +52,67 @@ const server = http.createServer((req, res) => {
         
     }else if (req.method == "POST") {
         if (req.url == "/addProject") {
-            res.write("trying to add a project")
-            // console.log("you did it :))))))")
-            res.end()
+
+
+
+            req.on('data',  chunk   => {
+       
+                console.log(req.url =` /addProject/${ chunk }` )
+                  
+
+            //    chunk.split("&")
+                // console.log(`Data chun euuuh !!: ${chunk}`)
+                
+            })
+            // req.on('end', () => {
+            //     //end of data
+            // })
+           
+
+            // const data = Buffer.concat(buffers).toString();
+            // let data = '';
+
+            // req.on('data', chunk => {
+            //    let chnuunk =  stringify(chunk)
+            //     console.log(chnuunk)
+            // })
+            // req.on('end', () => {
+            //     //end of data
+            // })
+
+             // we can access HTTP headers
+
+            
+            // const buffers = []; 
+            // req.setEncoding('utf8')
+          
+            
+            // for(const chunk in req) {
+            //     buffers.push(chunk);
+            //     console.log(typeof chunk)
+            //   }
+
+            //   const data = Buffer.concat(buffers).toString();
+        
+                    // var data = '';
+                    //   req.on('data', chunk => {
+                    //   data += chunk;
+                    // console.log(typeof data)
+                // })
+              
+            req.on('end', () => {
+            //     console.log(JSON.stringify(data)); 
+            //     let name = JSON.stringify((data))
+            //     let description = JSON.stringify((data))
+            //     console.log( JSON.stringify((data)))
+            //     insertProject(name, description)
+            // console.log(JSON.parse(data));
+    
+                res.write("trying to add a project")
+                res.end();
+            })
+            // res.end()
+       
         }
     }
     else {

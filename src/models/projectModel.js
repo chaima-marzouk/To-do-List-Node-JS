@@ -13,9 +13,22 @@ let getProjects = (callback) => {
 
 }
 
+let insertProject = ( name, description) =>{
+    const author = { name: name, description: description };
+    db.query('INSERT INTO project SET ?', author, (err, res) => {
+    if(err) throw err;
+    
+    // console.log('Last insert ID:', res.id);
+    callback(res)
+    });
+}
 
 
-module.exports =  { getProjects }
+
+module.exports =  { 
+    getProjects,
+    insertProject
+ }
 
 
 
