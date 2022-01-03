@@ -8,6 +8,7 @@ const port = 3000;
 const { getProjects } = require('./src/models/projectModel')
 const { insertProject } = require('./src/models/projectModel')
 const { deleteProject } = require('./src/models/projectModel')
+const { getTasks} = require('./src/models/tasksModel')
 const { parse } = require('querystring')
 
 // console.log(insertProject.res)
@@ -41,17 +42,15 @@ if (req.method == "GET"){
     else if(pat.pathname === (`/projects/`)){
 
             console.log(idProject);
-        
-            console.log("we got it")
-            res.writeHead(200, {'Content-Type': 'text/html'});
-            fs.readFile(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8' , (err, data) => {
-            if(err) throw err;
-            let htmlContent = ejs.render(data, []);
-            res.write(htmlContent);
-            res.end();
-        });  
-       
-
+            getTasks((data) => {
+                res.writeHead(200, {'Content-Type': 'text/html'});
+                let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8');
+                let htmlContent = ejs.render(fileContent, { tasks: data});
+                res.write(htmlContent);
+                res.end();
+            }, idProject);
+            
+          
     }
     else if(pat.pathname === (`/delete_project/`)){
       

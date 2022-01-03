@@ -25,13 +25,9 @@ let insertProject = ( name, description) =>{
 
 let deleteProject = (id) =>{
     console.log(id)
-    // const author = { name: name, description: description };
     db.query('DELETE FROM project WHERE id = ?', id, (err, res) => {
     if(err) throw err;
-    // console.log(`Deleted ${res.affectedRows} row(s)`);
-    
-    // console.log("test");
-    // callback(res)
+  
     });
 }
 
