@@ -22,14 +22,17 @@ let insertProject = ( name, description) =>{
     callback(res)
     });
 }
-let deleteProject = ( id) =>{
+
+let deleteProject = (id) =>{
+    console.log(id)
     // const author = { name: name, description: description };
-    'DELETE FROM project WHERE id = ?', id, (err, res) => {
+    db.query('DELETE FROM project WHERE id = ?', id, (err, res) => {
     if(err) throw err;
+    // console.log(`Deleted ${res.affectedRows} row(s)`);
     
-    // console.log('Last insert ID:', res.id);
-    callback(res)
-    };
+    // console.log("test");
+    // callback(res)
+    });
 }
 
 

@@ -60,7 +60,13 @@
 
     <div class="cors">
         <div class="tasks">
-
+            <h1>manage projects</h1>
+            <ul>
+                <% for(let project of projects) { %>
+                <li><%= project.name %></li>
+               <a href="/delete_project/?id=<%= project.id %>"> <button type="submit">Delete project</button></a>
+                <% } %>
+            </ul>
         </div>
     </div>
 </body>

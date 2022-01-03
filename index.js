@@ -7,6 +7,7 @@ const hostname = 'localhost';
 const port = 3000;
 const { getProjects } = require('./src/models/projectModel')
 const { insertProject } = require('./src/models/projectModel')
+const { deleteProject } = require('./src/models/projectModel')
 const { parse } = require('querystring')
 
 // console.log(insertProject.res)
@@ -52,6 +53,17 @@ if (req.method == "GET"){
        
 
     }
+    else if(pat.pathname === (`/delete_project/`)){
+      
+
+            console.log(idProject);
+      
+            deleteProject(idProject);
+            res.end(' project deleted successfully :) !');
+          
+            
+
+    }
     else if (req.url === "/projectPage") {
         getProjects((rows => {
             
@@ -92,8 +104,6 @@ if (req.method == "GET"){
             req.on('data',  chunk   => {
 
                 body += chunk.toString();
-       
-                // console.log(req.url =` /addProject/${ chunk }` )
              
                 
             })
