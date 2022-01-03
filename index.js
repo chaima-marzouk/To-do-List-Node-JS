@@ -106,10 +106,7 @@ if (req.method == "GET"){
                 body += chunk.toString();
              
                 
-            })
-           
-
-         
+            }) 
               
             req.on('end', () => {
 
