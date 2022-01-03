@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const route = require('url')
 const ejs = require('ejs');
 const hostname = 'localhost';
 const port = 3000;
@@ -12,14 +13,23 @@ const { parse } = require('querystring')
 
 
 const server = http.createServer((req, res) => {
+    const pat = route.parse(req.url, true);
+    const query = pat.query;
+    const idProject = query;
+    // console.log( idProject.toString())
+    test = parse(idProject)
+    let id = parse(idProject.id)
+    // test2 = test.toString()
+    console.log(id)
+
     
     
-    
-   
+if (req.method == "GET"){
    
     
     if (req.url === "/") {
         getProjects((rows) => {
+           
 
             res.writeHead(200, {'Content-Type': 'text/html'});
             let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `project.ejs`), 'utf-8');
@@ -30,7 +40,21 @@ const server = http.createServer((req, res) => {
         })
             
         
-    }else if (req.url === "/projectPage") {
+    }
+    else if(req.url === ("/projects/:id")){
+        
+            console.log("we got it")
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        fs.readFile(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });  
+       
+
+    }
+    else if (req.url === "/projectPage") {
         getProjects((rows => {
             
             res.writeHead(200, {'Content-Type': 'text/html'});
@@ -51,6 +75,16 @@ const server = http.createServer((req, res) => {
             res.end();
         });  
         
+    } else  {
+        res.writeHead(404, {'Content-Type': 'text/html'});
+        fs.readFile(path.join(__dirname, "src" , "views" , `404.ejs`), 'utf-8' , (err, data) => {
+            if(err) throw err;
+            let htmlContent = ejs.render(data, []);
+            res.write(htmlContent);
+            res.end();
+        });
+        
+    }
     }else if (req.method == "POST") {
         if (req.url == "/addProject") {
 
@@ -76,22 +110,13 @@ const server = http.createServer((req, res) => {
                 console.log(parse(body).name)
                 insertProject(name, description)
     
-                res.write("trying to add a project")
+                res.write("project aded a successfully ! :) ")
                 res.end();
             })
        
         }
     }
-    else {
-        res.writeHead(404, {'Content-Type': 'text/html'});
-        fs.readFile(path.join(__dirname, "src" , "views" , `404.ejs`), 'utf-8' , (err, data) => {
-            if(err) throw err;
-            let htmlContent = ejs.render(data, []);
-            res.write(htmlContent);
-            res.end();
-        });
-        
-    }
+   
 
 
 });

@@ -17,10 +17,11 @@
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               My projects
-            </button>
+            </button> 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <% for(let project of projects) { %>
-                    <a class="dropdown-item " href="#"><%= project.name %></a>
+                    <a class="dropdown-item " href="/projects?id=<%= project.id %> "><%= project.name %>  </a>
+                    <!-- <a class="dropdown-item " href="#"><%= project.id %> </a> -->
                     <% } %>
             </div>
           </div>
