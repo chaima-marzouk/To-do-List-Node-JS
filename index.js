@@ -45,7 +45,7 @@ if (req.method == "GET"){
             console.log(id);
             getTasks((data) => {
                 res.writeHead(200, {'Content-Type': 'text/html'});
-                let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8');
+                let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `task.ejs`), 'utf-8');
                 let htmlContent = ejs.render(fileContent, { tasks: data});
                 res.write(htmlContent);
                 res.end();
