@@ -15,14 +15,10 @@ const { parse } = require('querystring')
 const server = http.createServer((req, res) => {
     const pat = route.parse(req.url, true);
     const query = pat.query;
-    const idProject = query;
-    // console.log( idProject.toString())
-    test = parse(idProject)
-    let id = parse(idProject.id)
-    // test2 = test.toString()
-    console.log(id)
+    const idProject = query.id;
+   
 
-    
+    console.log(pat.pathname);
     
 if (req.method == "GET"){
    
@@ -41,11 +37,13 @@ if (req.method == "GET"){
             
         
     }
-    else if(req.url === ("/projects/:id")){
+    else if(pat.pathname === (`/projects/`)){
+
+            console.log(idProject);
         
             console.log("we got it")
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        fs.readFile(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8' , (err, data) => {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            fs.readFile(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8' , (err, data) => {
             if(err) throw err;
             let htmlContent = ejs.render(data, []);
             res.write(htmlContent);

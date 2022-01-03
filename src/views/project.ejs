@@ -20,8 +20,7 @@
             </button> 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <% for(let project of projects) { %>
-                    <a class="dropdown-item " href="/projects?id=<%= project.id %> "><%= project.name %>  </a>
-                    <!-- <a class="dropdown-item " href="#"><%= project.id %> </a> -->
+                    <a class="dropdown-item " href="/projects/?id=<%= project.id %> "><%= project.name %>  </a>
                     <% } %>
             </div>
           </div>

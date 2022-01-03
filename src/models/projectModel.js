@@ -22,12 +22,22 @@ let insertProject = ( name, description) =>{
     callback(res)
     });
 }
+let deleteProject = ( id) =>{
+    // const author = { name: name, description: description };
+    'DELETE FROM project WHERE id = ?', id, (err, res) => {
+    if(err) throw err;
+    
+    // console.log('Last insert ID:', res.id);
+    callback(res)
+    };
+}
 
 
 
 module.exports =  { 
     getProjects,
-    insertProject
+    insertProject,
+    deleteProject
  }
 
 
