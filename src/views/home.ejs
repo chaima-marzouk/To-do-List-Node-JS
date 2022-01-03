@@ -1,4 +1,4 @@
 <% for(let task of tasks) { %>
     <li><%= task.name %></li>
-   <a href="/delete_project/?id=<%= task.id %>"> <button type="submit">Delete task</button></a>
+   <a href="/delete_task/?id=<%= task.id_task %>"> <button type="submit">Delete task</button></a>
 <% } %>

@@ -9,6 +9,7 @@ const { getProjects } = require('./src/models/projectModel')
 const { insertProject } = require('./src/models/projectModel')
 const { deleteProject } = require('./src/models/projectModel')
 const { getTasks} = require('./src/models/tasksModel')
+const { deleteTask} = require('./src/models/tasksModel')
 const { parse } = require('querystring')
 
 // console.log(insertProject.res)
@@ -17,7 +18,7 @@ const { parse } = require('querystring')
 const server = http.createServer((req, res) => {
     const pat = route.parse(req.url, true);
     const query = pat.query;
-    const idProject = query.id;
+    const id = query.id;
    
 
     console.log(pat.pathname);
@@ -41,24 +42,35 @@ if (req.method == "GET"){
     }
     else if(pat.pathname === (`/projects/`)){
 
-            console.log(idProject);
+            console.log(id);
             getTasks((data) => {
                 res.writeHead(200, {'Content-Type': 'text/html'});
                 let  fileContent = fs.readFileSync(path.join(__dirname, "src" , "views" , `home.ejs`), 'utf-8');
                 let htmlContent = ejs.render(fileContent, { tasks: data});
                 res.write(htmlContent);
                 res.end();
-            }, idProject);
+            }, id);
             
           
     }
     else if(pat.pathname === (`/delete_project/`)){
       
 
-            console.log(idProject);
+            console.log(id);
       
-            deleteProject(idProject);
+            deleteProject(id);
             res.end(' project deleted successfully :) !');
+          
+            
+
+    }
+    else if(pat.pathname === (`/delete_task/`)){
+      
+
+            console.log(id);
+      
+            deleteTask(id);
+            res.end(' Task deleted successfully :) !');
           
             
 
