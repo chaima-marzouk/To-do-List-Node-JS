@@ -12,8 +12,8 @@
     <title>Document</title>
 </head>
 <body>
-    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-        <h1>TO-DO</h1>
+    <nav class="navbar">
+        <h1 >Intelvia</h1>
         <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               My projects
@@ -60,14 +60,58 @@
 
     <div class="cors">
         <div class="tasks">
-            <h1>manage projects</h1>
-            <ul>
+            <h2>Manage projects :</h2>
+            
+
+            <div class="list-group">
                 <% for(let project of projects) { %>
-                <li><%= project.name %></li>
-               <a href="/delete_project/?id=<%= project.id %>"> <button type="submit">Delete project</button></a>
+                <a  href="/delete_project/?id=<%= project.id %>"class="list-group-item list-group-item-action active">
+                    <%= project.name %>
+                </a>
                 <% } %>
-            </ul>
+        </div>
         </div>
     </div>
 </body>
 </html>
+
+<style>
+     body{
+        background-color: #fdf4f4;
+    }
+    h1{
+        font-family: Impact, fantasy;
+       color: #790C5A;
+    }
+    h2{
+        color: #CC0E74;
+    }
+    nav{
+        background-color: #E6739F;
+    }
+    .btn:not(:disabled):not(.disabled){
+        color: #f1d4d4;
+        font-size: large;
+
+    }
+    .btn:not(:disabled):not(.disabled):hover{
+        color: #790C5A;
+        font-size: larger;
+
+    }
+    .cors{
+        padding: 50px;   
+    }
+
+    .list-group{
+        /* padding: 5px 50px;   */
+        margin-right: 30px; 
+        margin-top: 30px;
+        
+    }
+    .list-group-item.active { 
+        background-color: #F1D4D4;
+        border-color: #CC0E74;
+        color: black;
+    }
+</style>
