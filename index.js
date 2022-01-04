@@ -10,7 +10,9 @@ const { insertProject } = require('./src/models/projectModel')
 const { deleteProject } = require('./src/models/projectModel')
 const { getTasks} = require('./src/models/tasksModel')
 const { deleteTask} = require('./src/models/tasksModel')
+const { insertTask} = require('./src/models/tasksModel')
 const { parse } = require('querystring')
+
 
 // console.log(insertProject.res)
 
@@ -126,7 +128,31 @@ if (req.method == "GET"){
                 console.log(parse(body).name)
                 insertProject(name, description)
     
-                res.write("project aded a successfully ! :) ")
+                res.write("project added a successfully ! :) ")
+                res.end();
+            })
+       
+        }
+        else if (req.url == "/addTask") {
+
+            let body = "";
+
+
+            req.on('data',  chunk   => {
+
+                body += chunk.toString();
+             
+                
+            }) 
+              
+            req.on('end', () => {
+
+                let name = parse(body).name
+                let date = parse(body).date
+                console.log(parse(body).name)
+                insertTask(name, date, id)
+    
+                res.write("Task added a successfully ! :) ")
                 res.end();
             })
        

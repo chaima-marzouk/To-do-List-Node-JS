@@ -1,7 +1,7 @@
 {
   "name": "to-do-list-node-js",
   "version": "1.0.0",
-  "description": "Une application pour gérer les tache d'un projet pour des utilisations interne d'une startup \"Intelvia\" qui offre des services de marketing en utilisant Nodejs/HTML/CSS/bootstrap.",
+  "description": "Une application pour gérer les taches d'un projet pour des utilisations interne d'une startup \"Intelvia\" qui offre des services de marketing en utilisant Nodejs/HTML/CSS/bootstrap.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

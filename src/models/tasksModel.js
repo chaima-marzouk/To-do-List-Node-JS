@@ -21,8 +21,18 @@ let deleteTask = (id) =>{
     });
 }
 
+let insertTask = ( name, date, id) =>{
+    const author = { name: name, date: date , id: id};
+    db.query('INSERT INTO task SET ?', author,'WHERE id_project = ?', author.id,(err, res) => {
+    if(err) throw err;
+    
+    callback(res)
+    });
+}
+
 module.exports ={
     getTasks,
-    deleteTask
+    deleteTask,
+    insertTask
 
 }
