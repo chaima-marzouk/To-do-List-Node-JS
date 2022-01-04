@@ -19,7 +19,7 @@ let insertProject = ( name, description) =>{
     if(err) throw err;
     
     // console.log('Last insert ID:', res.id);
-    callback(res)
+    // callback(res)
     });
 }
 

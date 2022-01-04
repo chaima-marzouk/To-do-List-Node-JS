@@ -17,6 +17,7 @@ const { parse } = require('querystring')
 // console.log(insertProject.res)
 
 
+
 const server = http.createServer((req, res) => {
     const pat = route.parse(req.url, true);
     const query = pat.query;
@@ -128,7 +129,7 @@ if (req.method == "GET"){
                 console.log(parse(body).name)
                 insertProject(name, description)
     
-                res.write("project added a successfully ! :) ")
+                res.writeHead(301, {'Location' : '/'})
                 res.end();
             })
        
@@ -152,7 +153,7 @@ if (req.method == "GET"){
                 console.log(parse(body).name)
                 insertTask(name, date, id)
     
-                res.write("Task added a successfully ! :) ")
+                res.writeHead(301, {'Location' : '/addTask'})
                 res.end();
             })
        
